@@ -11,7 +11,7 @@ class Search extends React.Component {
   }
 
   componentWillMount() {
-    this.lugaresRef = base.syncState(`lugares`, {
+    this.lugaresRef = base.fetch(`lugares`, {
       context: this,
       state: 'lugares'
     })
