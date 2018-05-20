@@ -1,10 +1,12 @@
 import { base } from '../assets/rebase'
 import  pinrota from './pinrota.png'
+import  bus from './bus.png'
 
 export default {
   renderMap: renderMap,
   getGeolocation: getGeolocation,
   setMarker: setMarker,
+  calcRate: calcRate,
   calcRateDistance: calcRateDistance
 
 }
@@ -132,7 +134,7 @@ function setMarker(map, location) {
   var marker = new window.google.maps.Marker({
     position: myLatLng,
     map: map,
-    icon: pinrota
+    icon: bus
   });
 }
 
@@ -241,6 +243,50 @@ function _showDirection(map, positionCurrent, positionDriver, positionPlace) {
     // });
 
   });
+}
+
+function calcRate(map, origem, destino){
+
+  console.log("origem", origem);
+  console.log("destino", destino);
+  
+
+  var directionsDisplay = new window.google.maps.DirectionsRenderer();
+  var directionsService = new window.google.maps.DirectionsService();
+
+  //linha abaixo comentada em caso de customizar a rota no mapa
+  var rendererOptions = {
+    suppressMarkers: true,
+    polylineOptions: {
+      strokeColor: 'black'
+    }
+  };
+
+  //linha abaixo comentada em caso de customizar a rota no mapa
+  directionsDisplay = new window.google.maps.DirectionsRenderer(rendererOptions);
+  directionsDisplay.setMap(map);
+  directionsDisplay.setOptions({ suppressMarkers: true });
+
+
+  var start = new window.google.maps.LatLng(origem.latitude, origem.longitude);
+  // geoEnd.forEach(geoEnd => {
+
+  var end = new window.google.maps.LatLng(destino.latitude, destino.longitude);
+  var request = {
+    origin: start,
+    destination: end,
+    travelMode: window.google.maps.DirectionsTravelMode.DRIVING
+  };
+
+  directionsService.route(request, function (response, status) {
+    if (status == 'OK') {
+      var route = response.routes[0].legs[0];
+      directionsDisplay.setDirections(response);
+      map.panTo(new window.google.maps.LatLng(origem.latitude, origem.longitude));
+      map.setCenter(new window.google.maps.LatLng(destino.latitude, destino.longitude));
+    }
+  });
+
 }
 
 /*

@@ -6,9 +6,13 @@ const map = (props) => {
   mapHelper.getGeolocation((position) => {
 
     let map = mapHelper.renderMap(position)
+
+    if(  props.origem && props.destino  ){
+      mapHelper.calcRate(map, props.origem, props.destino );
+    }
     mapHelper.setMarker(map, props.origem)
     mapHelper.setMarker(map, props.destino)
-    mapHelper.calcRateDistance(map, position);
+    // mapHelper.calcRateDistance(map, position);
   })
 
   return (
