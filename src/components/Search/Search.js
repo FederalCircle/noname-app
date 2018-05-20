@@ -11,9 +11,10 @@ class Search extends React.Component {
   }
 
   componentWillMount() {
-    this.lugaresRef = base.fetch(`lugares`, {
-      context: this,
-      state: 'lugares'
+    base.fetch(`lugares`, {
+      context: this
+    }).then(data => {
+      this.setState({ lugares: data });
     })
   }
 
