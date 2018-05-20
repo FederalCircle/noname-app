@@ -19,17 +19,6 @@ class Search extends React.Component {
   }
 
   inputClick = () => {
-    try {
-      var notification = new Notification("Hooray!");
-    } catch (e) {
-      navigator.serviceWorker.ready.then(function(registration) {
-        registration.showNotification('Vibration Sample', {
-          body: 'Buzz! Buzz!',
-          vibrate: [200, 100, 200, 100, 200, 100, 200],
-          tag: 'vibration-sample'
-        });
-      });
-    }
     this.setState({
       showPlaces: !!this.state.showPlaces
     });
