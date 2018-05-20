@@ -81,7 +81,7 @@ const search = props => {
                         </div>
                     </div>
                 </div>
-                <Link to='/rotina' className='bottomButton'>
+                <Link to='/visao-geral' className='bottomButton'>
                   <button type="submit" className="btn btn-primary">OK</button>
                 </Link>
 
