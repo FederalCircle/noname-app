@@ -1,11 +1,12 @@
-import {base} from '../assets/rebase'
+import { base } from '../assets/rebase'
+import  pinrota from './pinrota.png'
 
 export default {
   renderMap: renderMap,
   getGeolocation: getGeolocation,
   setMarker: setMarker,
   calcRateDistance: calcRateDistance
-  
+
 }
 
 function getGeolocation(callback) {
@@ -14,19 +15,19 @@ function getGeolocation(callback) {
     navigator.geolocation.getCurrentPosition(callback, function (error) {
       switch (error.code) {
         case error.PERMISSION_DENIED:
-        console.log("PERMISSION_DENIED");
-        alert("Permissão de acesso a geolocalizacão negada, \npara ter acesso ao serviço aceite a permissão! ");
-        break;
+          console.log("PERMISSION_DENIED");
+          alert("Permissão de acesso a geolocalizacão negada, \npara ter acesso ao serviço aceite a permissão! ");
+          break;
         case error.POSITION_UNAVAILABLE:
-        alert("geolocalizacao indisponivel! ");
-        console.log("POSITION_UNAVAILABLE");
-        break;
+          alert("geolocalizacao indisponivel! ");
+          console.log("POSITION_UNAVAILABLE");
+          break;
         case error.TIMEOUT: 2
-        console.log("TIMEOUT");
-        break;
+          console.log("TIMEOUT");
+          break;
         case error.UNKNOWN_ERROR:
-        console.log("UNKNOWN_ERROR");
-        break;
+          console.log("UNKNOWN_ERROR");
+          break;
       }
     })
   } else {
@@ -36,6 +37,7 @@ function getGeolocation(callback) {
 }
 
 function renderMap(position) {
+  console.log("renderMap", position);
   var loc = position.coords;
   var myLatLng = new window.google.maps.LatLng(loc.latitude, loc.longitude);
   var mapOptions = {
@@ -48,8 +50,8 @@ function renderMap(position) {
     rotateControl: false,
     fullscreenControl: false
   },
-  map = new window.google.maps.Map(document.getElementById("map"), mapOptions),
-  markers = [];
+    map = new window.google.maps.Map(document.getElementById("map"), mapOptions),
+    markers = [];
 
   var outMarker = new window.google.maps.Marker({
     position: myLatLng,
@@ -111,83 +113,134 @@ function renderMap(position) {
     });
   }
 
-  var hasCurrentLocalization = loc.latitude && loc.latitude;
-  if (hasCurrentLocalization) {
-    var centerControlDiv = document.createElement('div');
-    var centerControl = new CenterControl(centerControlDiv, map);
-    centerControlDiv.index = 1;
-    map.controls[window.google.maps.ControlPosition.RIGHT_BOTTOM].push(centerControlDiv);
-  }
+  // var hasCurrentLocalization = geoStart.coords.latitude, geoStart.coords.longitude;
+  // if (hasCurrentLocalization) {
+  //   var centerControlDiv = document.createElement('div');
+  //   var centerControl = new CenterControl(centerControlDiv, map);
+  //   centerControlDiv.index = 1;
+  //   map.controls[window.google.maps.ControlPosition.RIGHT_BOTTOM].push(centerControlDiv);
+  // }
 
   return map
 }
 
 function setMarker(map, location) {
+  console.log("setMarker", location);
+  
   var myLatLng = new window.google.maps.LatLng(location.latitude, location.longitude);
   var infoWindow = new window.google.maps.InfoWindow();
   var marker = new window.google.maps.Marker({
     position: myLatLng,
     map: map,
-    icon: {
-      path: 'M 0,0 C -2,-20 -10,-22 -10,-30 A 10,10 0 1,1 10,-30 C 10,-22 2,-20 0,0 z M -2,-30 a 2,2 0 1,1 4,0 2,2 0 1,1 -4,0',
-      fillColor: "#7AB800",
-      fillOpacity: 1,
-      strokeColor: '#E6E6E6',
-      strokeWeight: 1,
-      scale: 1
-    }
+    icon: pinrota
   });
 }
 
-function calcRateDistance(positionCurrent){
-    base.fetch('rotinas', {
-      context: this,
-      asArray: true,
-      then(data){
-        var positionDriver = data[0];
-        _getGoogleDistanceApi(positionCurrent, positionDriver);
-      }
-    });
+
+function calcRateDistance(map, positionCurrent) {
+  calcRateDistancePlace(map, positionCurrent);
 }
 
-function _getGoogleDistanceApi(positionCurrent, positionDriver){
-  console.log("positionCurrent", positionCurrent);
-  console.log("positionDriver", positionDriver);
+function calcRateDistancePlace(map, positionCurrent) {
+  base.fetch('lugares', {
+    context: this,
+    asArray: true,
+    then(data) {
+      var positionPlace = data[4];
+      console.log("positionPlace", positionPlace);
+      calcRateDistanceDriver(map, positionCurrent, positionPlace);
+      // _getGoogleDistanceApi(map, positionCurrent, positionDriver);
+    },
+  });
+}
 
-   var elements = [
-      {
-          "distance": {
-              "text": "1,9 km",
-              "value": 1853
-          },
-          "duration": {
-              "text": "7 minutos",
-              "value": 413
-          },
-          "status": "OK"
+function calcRateDistanceDriver(map, positionCurrent, positionPlace) {
+  base.fetch('motorista/rotina', {
+    context: this,
+    asArray: true,
+    then(data) {
+      var positionDriver = data[0];
+      console.log("positionDriver", positionDriver);
+      _getGoogleDistanceApi(map, positionCurrent, positionDriver, positionPlace);
+    }, 
+  });
+}
+
+function _getGoogleDistanceApi(map, positionCurrent, positionDriver, positionPlace) {
+  console.log("positionCurrent", positionCurrent);
+
+  var elements = [
+    {
+      "distance": {
+        "text": "1,9 km",
+        "value": 1853
       },
-      {
-          "distance": {
-              "text": "11,6 km",
-              "value": 11643
-          },
-          "duration": {
-              "text": "22 minutos",
-              "value": 1349
-          },
-          "status": "OK"
-      }
+      "duration": {
+        "text": "7 minutos",
+        "value": 413
+      },
+      "status": "OK"
+    },
+    {
+      "distance": {
+        "text": "11,6 km",
+        "value": 11643
+      },
+      "duration": {
+        "text": "22 minutos",
+        "value": 1349
+      },
+      "status": "OK"
+    }
   ];
 
 
   var dataDriver = elements[0].duration.text;//position of driver
-  // var dataCurrent = elements[1].duration.text; //position of destination
-  console.log(dataDriver);
-  // console.log(dataCurrent);
-  
+  _showDirection(map, positionCurrent, positionDriver, positionPlace);
+
+}
 
 
+function _showDirection(map, positionCurrent, positionDriver, positionPlace) {
 
+
+  var directionsDisplay = new window.google.maps.DirectionsRenderer();
+  var directionsService = new window.google.maps.DirectionsService();
+
+  //linha abaixo comentada em caso de customizar a rota no mapa
+  var rendererOptions = {
+    suppressMarkers: true,
+    polylineOptions: {
+      strokeColor: 'black'
+    }
+  };
+
+  //linha abaixo comentada em caso de customizar a rota no mapa
+  directionsDisplay = new window.google.maps.DirectionsRenderer(rendererOptions);
+  directionsDisplay.setMap(map);
+  directionsDisplay.setOptions({ suppressMarkers: true });
+
+
+  var start = new window.google.maps.LatLng(positionDriver.lat, positionDriver.long);
+  // geoEnd.forEach(geoEnd => {
+
+  var end = new window.google.maps.LatLng(positionPlace.latitude, positionPlace.longitude);
+  var request = {
+    origin: start,
+    destination: end,
+    travelMode: window.google.maps.DirectionsTravelMode.DRIVING
+  };
+
+  directionsService.route(request, function (response, status) {
+    if (status == 'OK') {
+      var route = response.routes[0].legs[0];
+      directionsDisplay.setDirections(response);
+      map.panTo(new window.google.maps.LatLng(positionPlace.lat, positionPlace.long));
+      map.setCenter(new window.google.maps.LatLng(positionDriver.lat, positionDriver.long));
+    }
+    // });
+
+  });
 }
 
 /*
@@ -231,6 +284,10 @@ function _setMarker() {
     map.setCenter(new window.google.maps.LatLng());
     map.setZoom(18);
     _showDirection(markers);
+
+    PE-009
+Santana, Recife - PE
+-8.067596, -34.875433
   }
 
 }
