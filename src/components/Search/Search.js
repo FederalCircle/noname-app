@@ -4,7 +4,7 @@ import './Search.css'
 
 class Search extends React.Component {
   state = {
-    showList: false,
+    showPlaces: false,
     lugares: {},
     origem: '',
     destino: ''
@@ -23,41 +23,42 @@ class Search extends React.Component {
 
   inputClick = () => {
     this.setState({
-      showList: true
+      showPlaces: true
     });
   }
 
   inputBlur = () => {
     this.setState({
-      showList: false
+      showPlaces: false
     });
   }
 
-  selectPlace = (place) => {
+  selectPlace = (place, id) => {
     let target = this.state.origem? 'destino': 'origem'
     let state = {}
+    state.lugares = {...this.state.lugares}
     state[target] = place.name
+    state.showPlaces = false
+    state.lugares[id] = null
     this.setState(state)
 
     this.props.onSelectPlace(place)
   }
 
   render() {
-    let placelistClass = 'placeList ' + this.state.showPlaces? 'show' : 'hide'
+    let placelistClass = 'placeList ' + (this.state.showPlaces? 'show' : 'hide')
     return (
       <div className='Search'>
-        <div>
+        <div
+          onClick={this.inputClick}
+        >
           <input
             placeholder='Onde mora?'
-            onClick={this.inputClick}
-            onBlur={this.inputBlur}
             value={this.state.origem}
             disabled
           />
           <input
             placeholder='Para onde vai?'
-            onClick={this.inputClick}
-            onBlur={this.inputBlur}
             value={this.state.destino}
             disabled
           />
@@ -65,12 +66,14 @@ class Search extends React.Component {
         <div className={placelistClass}>
           <ul>
             {
-              Object.keys(this.state.lugares).map((id) => (
-                <li
-                  onClick={()=>this.selectPlace(this.state.lugares[id])}
-                  key={id}
-                >{this.state.lugares[id].name}</li>
-              ))
+              Object.keys(this.state.lugares).map((id) => {
+                return this.state.lugares[id]? (
+                  <li
+                    onClick={()=>this.selectPlace(this.state.lugares[id], id)}
+                    key={id}
+                  >{this.state.lugares[id].name}</li>
+                ) : null
+              })
             }
           </ul>
         </div>
