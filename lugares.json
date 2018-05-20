@@ -1,0 +1,44 @@
+[
+    {
+      "_id": "5b010ba071edef7c737d5c90",
+      "name":"Pronto Socorro Infantil Jorge de Medeiros",
+      "latitude":"-8.0350522",
+      "longitude":"-34.8950558",
+      "guid": "b5d38b77-aa60-4413-a372-0047ebd58a6d"
+    },
+    {
+      "_id": "5b010ba0121a0e42a46b19ee",
+      "name":"Bode do Nô - Afogados",
+      "latitude":"-8.076334",
+      "longitude":"-34.921605",
+      "guid": "ba66d63c-c270-464d-8c79-0e16d5ff7e7b"
+    },
+    {
+      "_id": "5b010ba06fbc505d7defd5d5",
+      "name":"Hotel ibis",
+      "latitude":"-8.0965896",
+      "longitude":"-34.9028745",
+      "guid": "62b20d72-51b5-4290-9b8a-64b978a0ac5d"
+    },
+    {
+      "_id": "5b010ba0a551d7d5ed20c592",
+      "name":"Segundo Jardim de Boa Viagem",
+      "latitude":"-8.0965896",
+      "longitude":"-34.9028745",
+      "guid": "472048bd-938a-4b6e-b21a-67ebf2c571ed"
+    },
+    {
+      "_id": "5b010ba042a66d7cbffe7284",
+      "name":"Aeroporto Internacional do Recife/Guararapes - Gilberto Freyre",
+      "latitude":"-8.1153459",
+      "longitude":"-34.9217439",
+      "guid": "c268363c-1548-4a1e-9a44-30628a2e68b4"
+    },
+    {
+      "_id": "5b010ba04e261bf9097c5de6",
+      "name":"Estação Cajueiro Seco",
+      "latitude":"-8.1444859",
+      "longitude":"-34.9349559",
+      "guid": "a1b7e442-a902-4a51-9576-cd859047e64c"
+    }
+  ]

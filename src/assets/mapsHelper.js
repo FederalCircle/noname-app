@@ -1,7 +1,11 @@
+import {base} from '../assets/rebase'
+
 export default {
   renderMap: renderMap,
   getGeolocation: getGeolocation,
-  setMarker: setMarker
+  setMarker: setMarker,
+  calcRateDistance: calcRateDistance
+  
 }
 
 function getGeolocation(callback) {
@@ -134,6 +138,58 @@ function setMarker(map, location) {
     }
   });
 }
+
+function calcRateDistance(positionCurrent){
+    base.fetch('rotinas', {
+      context: this,
+      asArray: true,
+      then(data){
+        var positionDriver = data[0];
+        _getGoogleDistanceApi(positionCurrent, positionDriver);
+      }
+    });
+}
+
+function _getGoogleDistanceApi(positionCurrent, positionDriver){
+  console.log("positionCurrent", positionCurrent);
+  console.log("positionDriver", positionDriver);
+
+   var elements = [
+      {
+          "distance": {
+              "text": "1,9 km",
+              "value": 1853
+          },
+          "duration": {
+              "text": "7 minutos",
+              "value": 413
+          },
+          "status": "OK"
+      },
+      {
+          "distance": {
+              "text": "11,6 km",
+              "value": 11643
+          },
+          "duration": {
+              "text": "22 minutos",
+              "value": 1349
+          },
+          "status": "OK"
+      }
+  ];
+
+
+  var dataDriver = elements[0].duration.text;//position of driver
+  // var dataCurrent = elements[1].duration.text; //position of destination
+  console.log(dataDriver);
+  // console.log(dataCurrent);
+  
+
+
+
+}
+
 /*
 function _setMarker() {
   setMarkers(map, locations);

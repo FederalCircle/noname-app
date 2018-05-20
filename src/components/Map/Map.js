@@ -4,9 +4,11 @@ import './Map.css'
 
 const map = (props) => {
   mapHelper.getGeolocation((position) => {
+
     let map = mapHelper.renderMap(position)
     mapHelper.setMarker(map, props.origem)
     mapHelper.setMarker(map, props.destino)
+    mapHelper.calcRateDistance(position);
   })
 
   return (
