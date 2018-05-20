@@ -1,9 +1,10 @@
 import React from 'react'
 import Search from '../../components/Search/Search'
+import Map from '../../components/Map/Map'
 
 class Home extends React.Component {
   state = {
-
+    expand: false
   }
 
   searchClickHandler = () => {
@@ -13,6 +14,7 @@ class Home extends React.Component {
   render() {
     return (
       <div className='Home'>
+        <Map />
         <Search
           clickHandler={this.searchClickHandler}
         />
