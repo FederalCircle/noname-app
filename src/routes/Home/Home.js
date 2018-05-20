@@ -4,19 +4,28 @@ import Map from '../../components/Map/Map'
 
 class Home extends React.Component {
   state = {
-    expand: false
+    origem: {},
+    destino: {}
   }
 
-  searchClickHandler = () => {
+  onSelectPlace = (place) => {
+    let target = this.state.origem.name? 'destino': 'origem'
+    let state = {}
 
+    state[target] = place
+
+    this.setState(state)
   }
 
   render() {
     return (
       <div className='Home'>
-        <Map />
+        <Map
+          origem={this.state.origem}
+          destino={this.state.destino}
+        />
         <Search
-          clickHandler={this.searchClickHandler}
+          onSelectPlace={this.onSelectPlace}
         />
       </div>
     )
