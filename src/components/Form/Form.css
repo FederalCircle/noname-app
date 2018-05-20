@@ -1,0 +1,31 @@
+.Form {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 5px;
+    width: 80%;
+}
+.title {
+    font-size: 20px;
+    color: #636161;
+    margin: 10px 0;
+}
+label {
+    font-size: 16px;
+    color: #636161;
+}
+.col-side {
+    display: inline-block;
+    width: 48%;
+}
+.col-right {
+    float: right;;
+}
+.checkOpt {
+    margin-right: 10px;
+}
+.btn-primary {
+    width: 100%;
+    margin-top: 25px;
+}
