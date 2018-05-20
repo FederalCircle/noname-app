@@ -20,13 +20,7 @@ class Search extends React.Component {
 
   inputClick = () => {
     this.setState({
-      showPlaces: true
-    });
-  }
-
-  inputBlur = () => {
-    this.setState({
-      showPlaces: false
+      showPlaces: !!this.state.showPlaces
     });
   }
 
