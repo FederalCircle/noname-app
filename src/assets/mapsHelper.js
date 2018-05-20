@@ -117,10 +117,10 @@ function renderMap(position) {
 
   // var hasCurrentLocalization = geoStart.coords.latitude, geoStart.coords.longitude;
   // if (hasCurrentLocalization) {
-  //   var centerControlDiv = document.createElement('div');
-  //   var centerControl = new CenterControl(centerControlDiv, map);
+    var centerControlDiv = document.createElement('div');
+    var centerControl = new CenterControl(centerControlDiv, map);
   //   centerControlDiv.index = 1;
-  //   map.controls[window.google.maps.ControlPosition.RIGHT_BOTTOM].push(centerControlDiv);
+    map.controls[window.google.maps.ControlPosition.RIGHT_BOTTOM].push(centerControlDiv);
   // }
 
   return map
