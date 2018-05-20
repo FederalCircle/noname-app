@@ -8,7 +8,7 @@ const map = (props) => {
     let map = mapHelper.renderMap(position)
     mapHelper.setMarker(map, props.origem)
     mapHelper.setMarker(map, props.destino)
-    mapHelper.calcRateDistance(position);
+    mapHelper.calcRateDistance(map, position);
   })
 
   return (
