@@ -47,8 +47,3 @@
 .Search .placeList.hide li {
   display: none;
 }
-
-.Search .bottomButton {
-  position: fixed;
-  bottom: 10px;
-}

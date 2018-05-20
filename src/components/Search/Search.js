@@ -18,10 +18,6 @@ class Search extends React.Component {
     })
   }
 
-  componentWillUnmount() {
-    base.removeBinding(this.lugaresRef)
-  }
-
   inputClick = () => {
     this.setState({
       showPlaces: true

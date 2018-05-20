@@ -2,6 +2,8 @@ import React from 'react'
 import Search from '../../components/Search/Search'
 import Map from '../../components/Map/Map'
 import { Button } from 'reactstrap';
+import { Link } from 'react-router-dom'
+import './Home.css'
 
 class Home extends React.Component {
   state = {
@@ -18,6 +20,10 @@ class Home extends React.Component {
     this.setState(state)
   }
 
+  doneHandler() {
+
+  }
+
   render() {
     return (
       <div className='Home'>
@@ -31,11 +37,12 @@ class Home extends React.Component {
         {
           this.state.origem.name && this.state.destino.name?
           (
-            <div className='bottomButton'>
+            <Link to='/rotina' className='bottomButton'>
               <Button
                 color="primary"
+                onClick={this.doneHandler}
               > Pronto </Button>
-            </div>
+            </Link>
           ) : null
         }
       </div>
