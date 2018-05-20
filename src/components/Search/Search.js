@@ -19,22 +19,17 @@ class Search extends React.Component {
   }
 
   inputClick = () => {
-    Notification.requestPermission(function (permission) {
-      // If the user accepts, let's create a notification
-      if (permission === "granted") {
-        try {
-          var notification = new Notification("Hooray!");
-        } catch (e) {
-          navigator.serviceWorker.ready.then(function(registration) {
-            registration.showNotification('Vibration Sample', {
-              body: 'Buzz! Buzz!',
-              vibrate: [200, 100, 200, 100, 200, 100, 200],
-              tag: 'vibration-sample'
-            });
-          });
-        }
-      }
-    })
+    try {
+      var notification = new Notification("Hooray!");
+    } catch (e) {
+      navigator.serviceWorker.ready.then(function(registration) {
+        registration.showNotification('Vibration Sample', {
+          body: 'Buzz! Buzz!',
+          vibrate: [200, 100, 200, 100, 200, 100, 200],
+          tag: 'vibration-sample'
+        });
+      });
+    }
     this.setState({
       showPlaces: !!this.state.showPlaces
     });
