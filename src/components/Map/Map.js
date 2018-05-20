@@ -7,12 +7,15 @@ const map = (props) => {
 
     let map = mapHelper.renderMap(position)
 
-    if(  props.origem && props.destino  ){
-      mapHelper.calcRate(map, props.origem, props.destino );
+    if (  props.origem === undefined && props.destino === undefined  ) {
+      mapHelper.calcRateDistance(map, position)
+    } else {
+      if(  props.origem && props.destino  ){
+        mapHelper.calcRate(map, props.origem, props.destino )
+      }
+      mapHelper.setMarker(map, props.origem)
+      mapHelper.setMarker(map, props.destino)
     }
-    mapHelper.setMarker(map, props.origem)
-    mapHelper.setMarker(map, props.destino)
-    // mapHelper.calcRateDistance(map, position);
   })
 
   return (
