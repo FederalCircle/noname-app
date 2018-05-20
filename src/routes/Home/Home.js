@@ -1,7 +1,7 @@
 import React from 'react'
 import Search from '../../components/Search/Search'
 import Map from '../../components/Map/Map'
-import { Button } from 'reactstrap';
+import { Button } from 'reactstrap'
 import { Link } from 'react-router-dom'
 import './Home.css'
 

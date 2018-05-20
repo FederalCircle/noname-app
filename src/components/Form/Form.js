@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import './Form.css'
 
 const search = props => {
@@ -80,7 +81,10 @@ const search = props => {
                         </div>
                     </div>
                 </div>
-                <button type="submit" className="btn btn-primary">OK</button>
+                <Link to='/rotina' className='bottomButton'>
+                  <button type="submit" className="btn btn-primary">OK</button>
+                </Link>
+
             </form>
         </div>
     )
