@@ -19,14 +19,14 @@ class Search extends React.Component {
   }
 
   inputClick = () => {
+    Notification.requestPermission(function (permission) {
+      // If the user accepts, let's create a notification
+      if (permission === "granted") {
+        var notification = new Notification("Hi there!");
+      }
+    })
     this.setState({
-      showPlaces: true
-    });
-  }
-
-  inputBlur = () => {
-    this.setState({
-      showPlaces: false
+      showPlaces: !!this.state.showPlaces
     });
   }
 
