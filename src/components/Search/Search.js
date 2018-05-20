@@ -20,7 +20,7 @@ class Search extends React.Component {
 
   inputClick = () => {
     this.setState({
-      showPlaces: !!this.state.showPlaces
+      showPlaces: !this.state.showPlaces
     });
   }
 
