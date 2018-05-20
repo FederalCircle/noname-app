@@ -22,10 +22,16 @@ class Search extends React.Component {
     Notification.requestPermission(function (permission) {
       // If the user accepts, let's create a notification
       if (permission === "granted") {
-        if ('showNotification' in ServiceWorkerRegistration) {
-          ServiceWorkerRegistration.showNotification('Hooray!')
-        } else {
+        try {
           var notification = new Notification("Hooray!");
+        } catch (e) {
+          navigator.serviceWorker.ready.then(function(registration) {
+            registration.showNotification('Vibration Sample', {
+              body: 'Buzz! Buzz!',
+              vibrate: [200, 100, 200, 100, 200, 100, 200],
+              tag: 'vibration-sample'
+            });
+          });
         }
       }
     })
