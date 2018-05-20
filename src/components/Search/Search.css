@@ -1,0 +1,22 @@
+.Search {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 5px;
+  width: 80%;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+.Search .col {
+  border-right: 1px solid #606060;
+  border-left: 1px solid #606060;
+}
+
+.Search input {
+  outline: none;
+  border: none;
+  height: 50px;
+  font-size: 25px;
+  margin: 3px;
+}

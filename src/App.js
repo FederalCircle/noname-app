@@ -1,8 +1,7 @@
 import React from 'react'
-import Logger from './components/Logger/Logger'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { base } from './assets/rebase'
-
-import logo from './logo.svg'
+import Home from './routes/Home/Home'
 import './App.css'
 
 class App extends React.Component {
@@ -21,28 +20,12 @@ class App extends React.Component {
     base.removeBinding(this.logsRef)
   }
 
-  addLogs = (text) => {
-    const logs = {...this.state.logs}
-    const id = Date.now()
-    logs[id] = {
-      id: id,
-      text: text
-    }
-
-    this.setState({logs})
-  }
-
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <Logger
-          logs={this.state.logs}
-          addLog={this.addLogs}
-        />
+      <div>
+        <Router>
+          <Route exact path='' component={Home} />
+        </Router>
       </div>
     )
   }
